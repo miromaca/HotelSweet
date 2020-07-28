@@ -46,7 +46,7 @@ class Hotel(Topo):
         logger.debug("Create Hosts")
         
         num = 0
-        for x in range(1, floorNum+1):
+        for x in xrange(1, floorNum+1):
             for y in xrange(2, dens+2):
                 num+=1
                 self.HostList.append(self.addHost(name=("h"+str(num)), ip=("10.0."+str(x)+"."+str(y))))
