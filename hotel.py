@@ -76,7 +76,7 @@ class Hotel(Topo):
                 self.addLink(
                     self.FloorSwList[x],
                     self.HostList[self.density * x + y], 
-                    port1=i+1, 
+                    port1=y+1, 
                     port2=1)
     
 def simpleTest():
@@ -101,5 +101,5 @@ def simpleTest():
     print("Stopping Network Topology")
     net.stop()
     
-topos = { 'fattree': ( lambda: simpleTest()) }
+topos = { 'hotel': ( lambda: simpleTest()) }
 
