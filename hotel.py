@@ -27,7 +27,7 @@ class Hotel(Topo):
         """Init.
             k: Number of floors at the hotel
         """
-        k=2
+        k=1
         
         self.floors = k
         self.hosts = k*2
