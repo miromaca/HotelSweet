@@ -27,7 +27,7 @@ class Hotel(Topo):
         """Init.
             k: Number of floors at the hotel
         """
-        k=1
+        k=2
         
         self.floors = k
         self.hosts = k*2
@@ -59,9 +59,9 @@ class Hotel(Topo):
         logger.debug("Create Floor Switches")
         for x in xrange(1, floorNum+1):
             if x < 10:
-                self.FloorSwList.append(self.addSwitch(name="Floor"+str(x), dpid="00:00:00:00:00:00:00:0"+str(x)))
+                self.FloorSwList.append(self.addSwitch(name="Floor_"+str(x), dpid="00:00:00:00:00:00:00:0"+str(x)))
             if x >= 10:
-                self.FloorSwList.append(self.addSwitch(name="Floor"+str(x), dpid="00:00:00:00:00:00:00:"+str(x)))
+                self.FloorSwList.append(self.addSwitch(name="Floor_"+str(x), dpid="00:00:00:00:00:00:00:"+str(x)))
         
     """
     Create links
