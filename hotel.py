@@ -42,11 +42,12 @@ class Hotel(Topo):
         self._addHosts(self.density, self.floors)
         self.createLink()
         
-    def _addHosts(self, density, floors):
+    def _addHosts(self, dens, floorNum):
         logger.debug("Create Hosts")
+        
         num = 0
-        for x in range(1, floors+1):
-            for y in xrange(2, density+2):
+        for x in range(1, floorNum+1):
+            for y in xrange(2, dens+2):
                 num+=1
                 self.HostList.append(self.addHost(name=("h"+str(num)), ip=("10.0."+str(x)+"."+str(y))))
         
@@ -54,9 +55,9 @@ class Hotel(Topo):
         logger.debug("Create Hotel Switch")
         hotelSwitch = self.addSwitch(name="hotelSwitch", dpid="00:00:00:00:00:00:01:00")
         
-    def createFloors(self, floors):
+    def createFloors(self, floorNum):
         logger.debug("Create Floor Switches")
-        for x in xrange(1, floors+1):
+        for x in xrange(1, floorNum+1):
             if x < 10:
                 self.FloorSwList.append(self.addSwitch(name="Floor"+str(x), dpid="00:00:00:00:00:00:00:0"+str(x)))
             if x >= 10:
