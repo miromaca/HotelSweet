@@ -19,16 +19,16 @@ logger = logging.getLogger(__name__)
 
 class Hotel(Topo):
     # Fat tree topology of order k
-    FloorSwList = []
-    HostList = []
+    
     
     
     def __init__(self, **opts):
         """Init.
             k: Number of floors at the hotel
         """
-        k=1
-        
+        k=2
+        self.FloorSwList = []
+        self.HostList = []
         self.floors = k
         self.hosts = k*2
         self.density = self.hosts/self.floors
@@ -48,19 +48,19 @@ class Hotel(Topo):
         num = 0
         for x in xrange(1, floorNum+1):
             for y in xrange(2, dens+2):
-                num+=1
-                self.HostList.append(self.addHost(name=("h"+str(num)), ip=("10.0."+str(x)+"."+str(y))))
+                num = num + 1
+                self.HostList.append(self.addHost(name="h"+str(num), ip="10.0."+str(x)+"."+str(y)))
         
     def createHotelSw(self):
         logger.debug("Create Hotel Switch")
-        hotelSwitch = self.addSwitch(name="hotelSwitch", dpid="00:00:00:00:00:00:01:00")
+        self.hotelSwitch = self.addSwitch(name="hotelSwitch", dpid="00:00:00:00:00:00:01:00")
         
     def createFloors(self, floorNum):
         logger.debug("Create Floor Switches")
         for x in xrange(1, floorNum+1):
             if x < 10:
                 self.FloorSwList.append(self.addSwitch(name="Floor_"+str(x), dpid="00:00:00:00:00:00:00:0"+str(x)))
-            if x >= 10:
+            elif x >= 10:
                 self.FloorSwList.append(self.addSwitch(name="Floor_"+str(x), dpid="00:00:00:00:00:00:00:"+str(x)))
         
     """
@@ -74,11 +74,7 @@ class Hotel(Topo):
         logger.debug("Link Floor switches to Hosts")
         for x in xrange(0, self.floors):
             for y in xrange(0, self.density):
-                self.addLink(
-                    self.FloorSwList[x],
-                    self.HostList[self.density * x + y], 
-                    port1=y+1, 
-                    port2=1)
+                self.addLink(self.FloorSwList[x], self.HostList[self.density * x + y], port1=y+1, port2=1)
     
 def simpleTest():
 
